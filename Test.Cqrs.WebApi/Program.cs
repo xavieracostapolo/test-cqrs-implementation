@@ -1,6 +1,11 @@
+using Test.Cqrs.WebApi.Contracts.Handlers;
+using Test.Cqrs.WebApi.Implementation.Handlers;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddScoped<IAddPostCommandHandler, AddPostCommandHandler>();
+builder.Services.AddScoped<IGetPostQueryHandler, GetPostQueryHandler>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
