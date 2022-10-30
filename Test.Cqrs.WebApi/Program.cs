@@ -1,4 +1,5 @@
 using System.Reflection;
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
 
@@ -7,11 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 
-
-builder.Services.AddFluentValidation(options =>
-{
-    options.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-});
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddFluentValidationClientsideAdapters();
+builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
