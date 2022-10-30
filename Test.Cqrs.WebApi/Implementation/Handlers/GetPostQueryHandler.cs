@@ -1,13 +1,12 @@
-using System;
-using Test.Cqrs.WebApi.Contracts.Handlers;
+using MediatR;
 using Test.Cqrs.WebApi.Models.Requests;
 using Test.Cqrs.WebApi.Models.Responses;
 
 namespace Test.Cqrs.WebApi.Implementation.Handlers
 {
-    public class GetPostQueryHandler : IGetPostQueryHandler
+    public class GetPostQueryHandler : IRequestHandler<GetPostRequestModel, GetPostResponseModel>
     {
-        public GetPostResponseModel GetPost(GetPostRequestModel request)
+        public async Task<GetPostResponseModel> Handle(GetPostRequestModel request, CancellationToken cancellationToken)
         {
             // your logic get post...
 

@@ -1,6 +1,5 @@
-using System;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Test.Cqrs.WebApi.Contracts.Handlers;
 using Test.Cqrs.WebApi.Models.Requests;
 
 namespace Test.Cqrs.WebApi.Controllers
@@ -9,26 +8,24 @@ namespace Test.Cqrs.WebApi.Controllers
     [Route("[controller]")]
     public class PostController : ControllerBase
     {
-        private readonly IAddPostCommandHandler _addPostCommandHandler;
-        private readonly IGetPostQueryHandler _getPostQueryHandler;
+        private readonly IMediator _mediator;
 
-        public PostController(IAddPostCommandHandler addPostCommandHandler, IGetPostQueryHandler getPostQueryHandler)
+        public PostController(IMediator mediator)
         {
-            _addPostCommandHandler = addPostCommandHandler;
-            _getPostQueryHandler = getPostQueryHandler;
+            _mediator = mediator;
         }
 
         [HttpGet(Name = "postDetails")]
         public IActionResult Get([FromQuery] GetPostRequestModel request)
         {
-            var response = _getPostQueryHandler.GetPost(request);
+            var response = _mediator.Send(request);
             return Ok(response);
         }
 
         [HttpPost(Name = "addPost")]
         public IActionResult Post([FromBody] AddPostRequestModel request)
         {
-            var response = _addPostCommandHandler.AddPost(request);
+            var response = _mediator.Send(request);
             return Ok(response);
         }
     }

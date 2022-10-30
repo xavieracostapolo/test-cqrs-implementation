@@ -1,13 +1,12 @@
-using System;
-using Test.Cqrs.WebApi.Contracts.Handlers;
+using MediatR;
 using Test.Cqrs.WebApi.Models.Requests;
 using Test.Cqrs.WebApi.Models.Responses;
 
 namespace Test.Cqrs.WebApi.Implementation.Handlers
 {
-    public class AddPostCommandHandler : IAddPostCommandHandler
+    public class AddPostCommandHandler : IRequestHandler<AddPostRequestModel, AddPostResponseModel>
     {
-        public AddPostResponseModel AddPost(AddPostRequestModel request)
+        public async Task<AddPostResponseModel> Handle(AddPostRequestModel request, CancellationToken cancellationToken)
         {
             // your logic add post...
             
