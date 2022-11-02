@@ -19,7 +19,7 @@ namespace Test.Cqrs.WebApi.Controllers
         [HttpGet(Name = "postDetails")]
         public async Task<IActionResult> Get([FromQuery] GetPostRequestModel request)
         {
-            await _mediator.Publish(new Ping());
+            await _mediator.Publish(new Ping() { MyProperty = 1 });
             var response = _mediator.Send(request);
             return Ok(response);
         }
